@@ -1,0 +1,102 @@
+CREATE TABLE Salespersons
+(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(20)
+);
+
+CREATE TABLE Customers
+(
+	id         	SERIAL PRIMARY KEY,
+	salesperson_id INT
+);
+
+CREATE TABLE Orders
+(
+	id      	SERIAL PRIMARY KEY,
+	customer_id INT,
+	price   	INT
+);
+
+TRUNCATE Orders;
+INSERT INTO Orders (customer_id, price)
+VALUES (8, 2480),
+   	(6, 654),
+   	(13, 2938),
+   	(4, 2071),
+   	(4, 2412),
+   	(1, 236),
+   	(17, 2514),
+   	(18, 849),
+   	(7, 925),
+   	(10, 93),
+   	(14, 449),
+   	(15, 923),
+   	(14, 160),
+   	(1, 1978),
+   	(14, 2903),
+   	(13, 2093),
+   	(14, 2429),
+   	(12, 1058),
+   	(18, 2342),
+   	(19, 484),
+   	(4, 1040),
+   	(14, 2346),
+   	(19, 239),
+   	(14, 2253),
+   	(20, 510),
+   	(12, 497),
+   	(6, 1638),
+   	(9, 1088),
+   	(6, 1766),
+   	(2, 1548);
+
+INSERT INTO Salespersons (name)
+VALUES ('Stephanie'),
+   	('Rebecca'),
+   	('Deborah'),
+   	('Jordan'),
+   	('Veronica'),
+   	('Marisa'),
+   	('Deanna'),
+   	('Emma'),
+   	('Julie'),
+   	('Maria');
+
+INSERT INTO Customers (salesperson_id)
+VALUES (5),
+   	(4),
+   	(8),
+   	(10),
+   	(3),
+   	(1),
+   	(6),
+   	(2),
+   	(1),
+   	(4),
+   	(4),
+   	(5),
+   	(8),
+   	(8),
+   	(10),
+   	(5),
+   	(3),
+   	(1),
+   	(6),
+   	(3);
+
+-- Напишите запрос, который извлекает из предложенной базы данных идентификаторы всех продавцов,
+-- а также определяет общую сумму, заработанную каждым продавцом.
+-- Результат должен быть отсортирован по id продавца.
+
+SELECT s.id,
+       COALESCE(SUM(o.price), 0) AS sum
+FROM Salespersons s
+LEFT JOIN Customers c ON c.salesperson_id = s.id
+LEFT JOIN Orders o ON o.customer_id = c.id
+GROUP BY s.id
+ORDER BY s.id;
+
+
+
+
+

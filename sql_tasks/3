@@ -1,0 +1,19 @@
+вывести построчно всех кастомеров (id, email) и все элементы корзины пользователя (title, amount)
+
+Create table cart_item (
+    id integer primary key,
+    customer_id integer NOT nuLL,
+    title varchar(20) not null,
+    amount integer not null,
+    price integer not null
+)
+
+CREATE TABLE customer (
+    id integer primary key,
+    email varchar(100) not null
+    country char 2
+)
+
+select c.id, c.email, ci.title, ci.amount
+from customer c
+left join cart_item ci on c.id = ci.customer_id

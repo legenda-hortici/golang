@@ -1,0 +1,8 @@
+Задачка 2 Найти пользователей, которые совершили покупок на сумму больше 5000.
+Вывести их имена в формате id пользователя | имя | фамилия | сумма покупок
+
+select u.id, u.name, u.surname, sum(o.price_total)
+from users u
+join orders o on u.id = o.user_id
+group by u.id, u.name, u.surname
+having o.sum > 5000

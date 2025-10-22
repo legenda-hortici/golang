@@ -1,0 +1,8 @@
+Задачка 1 нужно вывести уникальные комбинации пользователя и id для всех покупок,
+совершенных пользователями до того, как их забанили отсортировать сначала по имени пользователя, потом по sku
+
+SELECT DISTINCT u.name, o.sku
+FROM users u
+JOIN orders o ON u.id = o.user_id
+WHERE o.created_at < u.banned_at   -- заказ сделан до бана
+ORDER BY u.name ASC, o.sku ASC;
