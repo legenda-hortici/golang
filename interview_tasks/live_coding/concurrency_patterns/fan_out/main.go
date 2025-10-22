@@ -49,12 +49,11 @@ func main() {
 	for i, ch := range res {
 		go func(ch chan int, i int) {
 			defer wg.Done()
-			for k := range ch {
-				fmt.Println(k, i)
+			for val := range ch {
+				fmt.Printf("channel %d: %d\n", i+1, val)
 			}
 		}(ch, i)
 	}
 
 	wg.Wait()
-
 }
